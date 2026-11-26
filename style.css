@@ -1,0 +1,223 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+:root {
+    /* Primary Colors */
+    --color-gradient-start: hsl(6, 100%, 80%);
+    --color-gradient-end: hsl(335, 100%, 65%);
+
+    /* Neutral Colors */
+    --color-navy-dark: hsl(229, 57%, 11%);
+    --color-navy: hsl(228, 56%, 26%);
+    --color-gray: hsl(229, 7%, 55%);
+    --color-pale-blue: hsl(243, 100%, 93%);
+
+    /* Font Weight */
+    --font-weight-bold: 700;
+
+    /* Border Radius */
+    --radius-sm: 10px;
+
+    /* Spacing */
+    --spacing-xs: 0.625rem;
+    --spacing-sm: 0.9375rem;
+    --spacing-md: 1.25rem;
+    --spacing-lg: 1.875rem;
+}
+
+body {
+    font-family: "Raleway", sans-serif;
+    background: url("images/bg-mobile.png") center / cover no-repeat;
+    padding: var(--spacing-md);
+    min-height: 100vh;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: clamp(2rem, 8vh, 5rem);
+}
+
+:is(.storage-card__actions, .storage-card__usage) {
+    background-color: var(--color-navy);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-sm);
+}
+
+.storage-card {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.storage-card__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    border-top-right-radius: 60px;
+}
+
+.storage-card__logo {
+    align-self: flex-start;
+}
+
+.storage-card__tools {
+    display: flex;
+    gap: 10px;
+}
+
+.storage-card__tool-icon {
+    width: 40px;
+    height: 40px;
+    background-color: var(--color-navy-dark);
+    padding: var(--spacing-xs);
+    border-radius: var(--radius-sm);
+}
+
+.storage-card__usage {
+    position: relative;
+    color: var(--color-pale-blue);
+    font-size: 0.875rem;
+}
+
+.storage-card__remaining {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: hsl(243, 100%, 93%);
+    color: var(--color-navy-dark);
+    padding: var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.storage-card__remaining-value {
+    font-weight: var(--font-weight-bold);
+    font-size: 1.7rem;
+}
+
+.storage-card__remaining-label {
+    color: var(--color-gray);
+    text-transform: uppercase;
+    text-wrap: nowrap;
+    letter-spacing: 2px;
+}
+
+.storage-card__used-value {
+    font-weight: var(--font-weight-bold);
+}
+
+.storage-card__progress {
+    height: 20px;
+    margin-top: var(--spacing-sm);
+    margin-bottom: var(--spacing-xs);
+    background-color: var(--color-navy-dark);
+    border-radius: var(--radius-sm);
+    padding: 1px;
+    text-align: left;
+}
+
+.storage-card__progress-fill {
+    display: block;
+    height: 100%;
+    width: 81%;
+    border-radius: inherit;
+    background-image: linear-gradient(
+        to right,
+        var(--color-gradient-start),
+        var(--color-gradient-end)
+    );
+    position: relative;
+
+    &::before {
+        content: "";
+        background-color: var(--color-pale-blue);
+        height: calc(100% - 3px);
+        aspect-ratio: 1;
+        border-radius: 50%;
+        position: absolute;
+        right: 2px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
+
+.storage-card__scale {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-md);
+    font-weight: var(--font-weight-bold);
+}
+
+.attribution {
+    color: var(--color-pale-blue);
+    text-wrap: balance;
+    line-height: 1.8;
+}
+
+.attribution__link {
+    color: var(--color-gradient-end);
+
+    &:hover {
+        color: var(--color-gradient-start);
+        font-weight: var(--font-weight-bold);
+    }
+}
+
+/* Responsive design for screens => 768px */
+@media (min-width: 768px) {
+    body {
+        background: var(--color-navy-dark) url("images/bg-desktop.png")
+            no-repeat bottom / 100% 50%;
+    }
+
+    .storage-card {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .storage-card__actions {
+        flex: 0 1 350px;
+    }
+
+    .storage-card__usage {
+        flex-basis: 47%;
+        align-self: flex-end;
+        text-align: left;
+        flex: 0 1 450px;
+    }
+
+    .storage-card__scale {
+        margin-bottom: 0;
+    }
+
+    .storage-card__remaining {
+        top: 0;
+        left: auto;
+        right: var(--spacing-lg);
+        transform: translateY(-50%);
+
+        &::before {
+            content: "";
+            width: 30px;
+            height: 30px;
+            background-image: linear-gradient(
+                45deg,
+                transparent 50%,
+                var(--color-pale-blue) 50%
+            );
+            z-index: -1;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            transform: translateY(-10px);
+        }
+    }
+}
